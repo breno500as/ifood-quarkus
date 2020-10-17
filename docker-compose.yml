@@ -4,8 +4,17 @@ services:
     image: postgres:12.2
     container_name: postgres_cadastro
     ports:
-      - 5432:5432
+      - 5437:5432
     environment:
          - POSTGRES_PASSWORD=root
          - POSTGRES_USER=postgres
          - POSTGRES_DB=sca-crud
+ keycloak_ifood:
+    image: jboss/keycloak:9.0.2
+    container_name: keycloak_ifood
+    environment:
+         - KEYCLOAK_USER=admin
+         - KEYCLOAK_PASSWORD=admin
+    ports:
+      - 8180:8080
+
