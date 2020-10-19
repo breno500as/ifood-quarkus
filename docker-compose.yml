@@ -1,6 +1,6 @@
 version: "3"
 services:
- postgres_cadastro: 
+ postgres_cadastro:  #http://localhost:8080/swagger-ui
     image: postgres:12.2
     container_name: postgres_cadastro
     ports:
@@ -9,7 +9,7 @@ services:
          - POSTGRES_PASSWORD=root
          - POSTGRES_USER=postgres
          - POSTGRES_DB=sca-crud
- keycloak_ifood: #http://localhost:8180/auth
+ keycloak_ifood: #http://localhost:8180
     image: jboss/keycloak:9.0.2
     container_name: keycloak_ifood
     environment:
@@ -17,7 +17,7 @@ services:
          - KEYCLOAK_PASSWORD=admin
     ports:
       - 8180:8080
- jaeger_ifood: #http://localhost:16686/search
+ jaeger_ifood: #http://localhost:16686
     image: jaegertracing/all-in-one:1.18
     container_name: jaeger_ifood
     ports:
@@ -29,7 +29,7 @@ services:
       - 14268:14268
       - 14250:14250
       - 9411:9411
- prometheus_ifood: #http://localhost:9090/graph
+ prometheus_ifood: #http://localhost:9090
     build:
        context: . 
        dockerfile: Dockerfile.prometheus
