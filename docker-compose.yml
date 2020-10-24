@@ -8,6 +8,10 @@ services:
     environment:
          - POSTGRES_PASSWORD=root
          - POSTGRES_USER=postgres
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
  postgres_market_place:  #http://localhost:8080/swagger-ui
     image: postgres:12.2
     container_name: postgres_market_place
@@ -121,7 +125,6 @@ services:
       ELASTICSEARCH_HOSTS: http://localhost:9200
     depends_on:
       - elastic
-  
  logstash:
     container_name: logstash
     image: docker.elastic.co/logstash/logstash-oss:6.8.2
@@ -134,3 +137,21 @@ services:
       - "5601:5601"
     depends_on:
       - elastic
+ connect: #http://localhost:8083/
+    container_name: connect
+    image: debezium/connect:1.1
+    environment:
+     - BOOTSTRAP_SERVERS=kafka:9092
+     - GROUP_ID=1
+     - CONFIG_STORAGE_TOPIC=my_connect_configs
+     - OFFSET_STORAGE_TOPIC=my_connect_offsets
+     - STATUS_STORAGE_TOPIC=my_connect_statuses
+    ports:
+     - 8083:8083
+    links:
+     - kafka
+     - postgres_cadastro
+    depends_on:
+      - kafka
+      - zookeeper
+      - postgres_cadastro
