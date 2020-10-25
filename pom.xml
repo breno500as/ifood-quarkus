@@ -24,5 +24,6 @@
 		<module>ifood-quarkus-crud</module>
 		<module>ifood-quarkus-order</module>
 		<module>ifood-quarkus-marketplace</module>
+		<module>ifood-quarkus-command-mode</module>
 	</modules>
 </project>
